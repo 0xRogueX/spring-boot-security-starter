@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OAuth2 Login Example</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+        .card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        button { padding: 10px 20px; background: #24292e; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #000; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 4px; overflow-x: auto; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <h1>OAuth2 + JWT Example</h1>
+
+    <div id="unauthenticated" class="card">
+        <p>You are not logged in.</p>
+        <!-- The starter exposes /oauth2/authorization/{registrationId} automatically -->
+        <button onclick="window.location.href='/oauth2/authorization/github'">Login with GitHub</button>
+    </div>
+
+    <div id="authenticated" class="card hidden">
+        <p><strong>Success!</strong> Received JWT tokens from OAuth2 redirect.</p>
+        <button onclick="fetchProfile()" style="background: #0366d6;">Fetch Protected Profile (/api/me)</button>
+        <button onclick="logout()" style="background: #d73a49; margin-left: 10px;">Logout</button>
+        
+        <h3>Tokens:</h3>
+        <pre id="tokenDisplay"></pre>
+
+        <h3>API Response:</h3>
+        <pre id="apiResponse">Ready to fetch...</pre>
+    </div>
+
+    <script>
+        // 1. On load, check if the URL contains our tokens from the OAuth2AuthenticationSuccessHandler redirect
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlAccessToken = urlParams.get('accessToken');
+        const urlRefreshToken = urlParams.get('refreshToken');
+
+        if (urlAccessToken) {
+            // Save tokens and clean the URL
+            localStorage.setItem('accessToken', urlAccessToken);
+            localStorage.setItem('refreshToken', urlRefreshToken);
+            window.history.replaceState({}, document.title, "/");
+        }
+
+        // 2. Update UI based on authentication state
+        const accessToken = localStorage.getItem('accessToken');
+        const refreshToken = localStorage.getItem('refreshToken');
+
+        if (accessToken) {
+            document.getElementById('unauthenticated').classList.add('hidden');
+            document.getElementById('authenticated').classList.remove('hidden');
+            document.getElementById('tokenDisplay').textContent = 
+                "Access Token:\n" + accessToken + "\n\nRefresh Token:\n" + refreshToken;
+        }
+
+        // 3. Use the token to access a protected API
+        async function fetchProfile() {
+            try {
+                const response = await fetch('/api/me', {
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken
+                    }
+                });
+                
+                if (response.status === 401) {
+                    document.getElementById('apiResponse').textContent = "Token expired! Redirecting to login...";
+                    logout();
+                    return;
+                }
+                
+                const data = await response.json();
+                document.getElementById('apiResponse').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('apiResponse').textContent = "Error: " + error.message;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>

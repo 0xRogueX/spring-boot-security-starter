@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>io.github.0xroguex</groupId>
+    <artifactId>spring-boot-security-starter-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Spring Boot Security Starter</name>
+    <description>A production-ready, reusable Spring Boot starter for JWT authentication, OAuth2, RBAC, refresh tokens, and security hardening.</description>
+    <url>https://github.com/springsecuritystarter/spring-boot-security-starter</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/0xroguex/spring-boot-security-starter.git</connection>
+        <developerConnection>scm:git:ssh://github.com:0xroguex/spring-boot-security-starter.git</developerConnection>
+        <url>https://github.com/0xroguex/spring-boot-security-starter</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <modules>
+        <module>spring-boot-security-starter</module>
+        <module>spring-boot-security-starter-test</module>
+        <module>examples/jwt-example</module>
+        <module>examples/rbac-example</module>
+        <module>examples/oauth2-example</module>
+    </modules>
+
+    <properties>
+        <java.version>17</java.version>
+        <jjwt.version>0.13.0</jjwt.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Internal modules -->
+            <dependency>
+                <groupId>io.github.0xroguex</groupId>
+                <artifactId>spring-boot-security-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.0xroguex</groupId>
+                <artifactId>spring-boot-security-starter-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- JWT -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

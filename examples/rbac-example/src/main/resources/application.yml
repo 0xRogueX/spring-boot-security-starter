@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: rbac-example
+
+  security:
+    starter:
+      jwt:
+        secret: "dGhpcyBpcyBhIHNhbXBsZSBzZWNyZXQga2V5IGZvciBkZXZlbG9wbWVudCBvbmx5IGRvIG5vdCB1c2UgaW4gcHJvZHVjdGlvbg=="
+        expiration: 3600000
+        issuer: "rbac-example"
+
+      public-paths:
+        - /api/public
+        - /api/auth/login
+        - /h2-console/**
+
+      audit-enabled: true
+
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+
+server:
+  port: 8081

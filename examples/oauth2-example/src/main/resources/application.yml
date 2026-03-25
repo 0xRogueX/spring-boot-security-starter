@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: oauth2-example
+
+  security:
+    # 1. Standard Spring Boot OAuth2 Client Config
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: "demo-client-id"       # Replace with real GitHub Client ID
+            client-secret: "demo-client-secret"   # Replace with real GitHub Client Secret
+            
+    # 2. Our Starter Config
+    starter:
+      jwt:
+        secret: "dGhpcyBpcyBhIHNhbXBsZSBzZWNyZXQga2V5IGZvciBkZXZlbG9wbWVudCBvbmx5IGRvIG5vdCB1c2UgaW4gcHJvZHVjdGlvbg=="
+        expiration: 3600000
+        issuer: "oauth2-example"
+
+      # Enable OAuth2 login processing in the starter
+      oauth2:
+        enabled: true
+        success-redirect-uri: "http://localhost:8082" # Redirect to our index.html
+
+      # We must permit our public index.html page and the error page
+      public-paths:
+        - /
+        - /index.html
+        - /error
+
+server:
+  port: 8082
