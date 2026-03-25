@@ -1,6 +1,6 @@
 # Spring Boot Security Starter
 
-[![Build Status](https://github.com/springsecuritystarter/spring-boot-security-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/springsecuritystarter/spring-boot-security-starter/actions)
+[![Build Status](https://github.com/0xRogueX/spring-boot-security-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/0xRogueX/spring-boot-security-starter/actions)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Java](https://img.shields.io/badge/Java-17%2B-orange.svg)](https://openjdk.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
@@ -35,7 +35,7 @@ Add one dependency and configure your secret key. You get:
 
 ```xml
 <dependency>
-    <groupId>io.github.springsecuritystarter</groupId>
+    <groupId>io.github.0xroguex</groupId>
     <artifactId>spring-boot-security-starter</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 </dependency>
@@ -170,7 +170,7 @@ mvn spring-boot:run -pl examples/oauth2-example
 ## Building from Source
 
 ```bash
-git clone https://github.com/springsecuritystarter/spring-boot-security-starter.git
+git clone https://github.com/0xRogueX/spring-boot-security-starter.git
 cd spring-boot-security-starter
 mvn clean install
 ```
