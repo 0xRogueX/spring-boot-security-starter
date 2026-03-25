@@ -9,6 +9,25 @@ A production-ready Spring Boot starter that adds **JWT authentication**, **OAuth
 
 ---
 
+## Why This Starter?
+
+* Eliminates repetitive Spring Security boilerplate
+* Provides a complete JWT + OAuth2 solution out of the box
+* Designed for real-world backend applications
+* Fully customizable and extensible
+
+Built to help developers focus on business logic instead of security setup.
+
+---
+
+## Roadmap
+
+* Publish to Maven Central
+* Add production-ready sample applications
+* Improve extensibility for enterprise use cases
+
+---
+
 ## Problem
 
 Every Spring Boot project that needs API security ends up copying the same boilerplate: JWT filter chains, token utilities, authentication entry points, password encoders, exception handlers, and messy OAuth2-to-JWT redirect logic. This starter eliminates that boilerplate.
